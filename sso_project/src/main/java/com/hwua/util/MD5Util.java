@@ -12,9 +12,21 @@ public class MD5Util {
     }
 
     public static void main(String[] args) {
-        System.out.println(md5hash("123456","test"));
+        //加密
+        String hashAlgorithmName = Md5Hash.ALGORITHM_NAME;
+        //密码
+        String credentials = "123456";
+        //加密次数
+        int hashIterations = 2019;
+        String salt="7d69eec997034bfb8c5c";
+        ByteSource bytes = ByteSource.Util.bytes(salt);
+
+        Object obj = new SimpleHash(hashAlgorithmName, credentials, bytes, hashIterations);//null 为盐
+        System.out.println(obj);
     }
-}
+
+    }
+
    /* public HashedCredentialsMatcher getHashedCredentialsMatcher(){
         //构建盐值加密类,指定加密方式为MD5
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher("MD5");

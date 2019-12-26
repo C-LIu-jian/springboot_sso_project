@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Administrator
  */
-@Controller
+@RestController
 public class UserAction {
 
     @Autowired
@@ -23,25 +23,10 @@ public class UserAction {
 
 
     @RequestMapping("/user/login")
-    public String login(@RequestBody User user){
+    public ResponseData login(@RequestBody User user) {
         System.out.println(user);
         ResponseData login = userService.login(user);
-        ModelAndView mv = new ModelAndView();
 
-        //判断是否认证
-        if (login == null) {
-            System.out.println("跳转页面");
-//           mv.setViewName("/main.html");
-            return "hello";
-
-        } else {
-            System.out.println("错误信息");
-//           mv.setViewName("/login.html");
-          return "login";
-
-
-        }
-//      return mv;
+        return login;
     }
-
 }

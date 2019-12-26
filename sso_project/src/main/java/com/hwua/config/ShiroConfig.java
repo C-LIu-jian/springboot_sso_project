@@ -1,6 +1,7 @@
 package com.hwua.config;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ public class ShiroConfig {
         //登录界面
         shiroFilterFactoryBean.setLoginUrl("/login.html");
         //成功之后的界面
-        shiroFilterFactoryBean.setSuccessUrl("/main.html");
+        shiroFilterFactoryBean.setSuccessUrl("/hello.html");
         //获取过滤器的集合
         Map<String, String> filterChainDefinitionMap = shiroFilterFactoryBean.getFilterChainDefinitionMap();
         //设置集合的内容
@@ -33,7 +34,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**","anon");
         filterChainDefinitionMap.put("/layui/**","anon");
         filterChainDefinitionMap.put("/user/login","anon");
-
+        filterChainDefinitionMap.put("/**","authc");
 //        filterChainDefinitionMap.put("/**","jWTFilter");
         return shiroFilterFactoryBean;
     }
@@ -55,7 +56,7 @@ public class ShiroConfig {
         MyRealm myRealm = new MyRealm();
         //设置加密算法
         myRealm.setCredentialsMatcher(getHashedCredentialsMatcher());
-        //myRealm.isCachingEnabled()
+//        myRealm.isCachingEnabled()
         return myRealm;
     }
 
@@ -63,7 +64,8 @@ public class ShiroConfig {
     @Bean("hashedCredentialsMatcher")
     public HashedCredentialsMatcher getHashedCredentialsMatcher(){
         //构建盐值加密类,指定加密方式为MD5
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher("MD5");
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName(Md5Hash.ALGORITHM_NAME);
         //加盐次数
         hashedCredentialsMatcher.setHashIterations(2019);
         return hashedCredentialsMatcher;
