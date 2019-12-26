@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class JWTServiceImpl {
-
-    //构建一个token
+public class JwtUtil {
+    private static final long EXPIRE_TIME = 5 * 60 * 1000;
+     //构建一个token
     public String encodeToken(User user) throws Exception {
         //获取JWTCreator中的Builder对象
-        JWTCreator.Builder builder = JWT.create().withClaim("username", user.getUsername()).withClaim("loginDate", new Date());
+        JWTCreator.Builder builder = JWT.create().withClaim("username", user.getUsername()).withClaim("loginDate", new Date(System.currentTimeMillis()+EXPIRE_TIME));
         //构建一个加密的凭证
         Algorithm algorithm = Algorithm.HMAC256(user.getPassword());
         //构建token
@@ -27,7 +27,7 @@ public class JWTServiceImpl {
     }
 
     //解码token
-    public String decodeTokenByKey(String token, String key) throws Exception {
+    public  static String decodeTokenByKey(String token, String key) throws Exception {
         //构建解码器
         DecodedJWT decode = JWT.decode(token);
         //获取有效负载里面的数据
@@ -36,7 +36,7 @@ public class JWTServiceImpl {
     }
 
     //验证
-    public boolean ckeckToken(User user,String token) throws  Exception{
+    public  static boolean ckeckToken(User user,String token) throws  Exception{
         if (user==null||user.getPassword()==null||user.getPassword().trim().equals("")){
             return false;
         }

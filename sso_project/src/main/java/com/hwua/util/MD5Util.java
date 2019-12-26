@@ -1,5 +1,6 @@
 package com.hwua.util;
 
+import com.hwua.domain.User;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -11,18 +12,24 @@ public class MD5Util {
         return new SimpleHash(Md5Hash.ALGORITHM_NAME, password, salt, 2019).toHex();
     }
 
-    public static void main(String[] args) {
+    /**
+     * 盐值加密密码
+     * @param user
+     * @return
+     */
+    public static String md5password(User user) {
         //加密
         String hashAlgorithmName = Md5Hash.ALGORITHM_NAME;
         //密码
-        String credentials = "123456";
+        String credentials =user.getPassword();
         //加密次数
         int hashIterations = 2019;
-        String salt="7d69eec997034bfb8c5c";
+        //盐值
+        String salt=user.getSalt();
         ByteSource bytes = ByteSource.Util.bytes(salt);
 
-        Object obj = new SimpleHash(hashAlgorithmName, credentials, bytes, hashIterations);//null 为盐
-        System.out.println(obj);
+        Object obj = new SimpleHash(hashAlgorithmName, credentials, bytes, hashIterations);
+        return  (String) obj;
     }
 
     }

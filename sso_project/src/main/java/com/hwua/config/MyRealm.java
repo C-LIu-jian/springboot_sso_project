@@ -1,7 +1,9 @@
 package com.hwua.config;
 
+import com.hwua.domain.JWTToken;
 import com.hwua.domain.User;
 import com.hwua.mapper.UserMapper;
+import com.hwua.util.JwtUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -15,6 +17,11 @@ public class MyRealm extends AuthorizingRealm {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public  boolean supports(AuthenticationToken token){
+        return  token instanceof JWTToken;
+    }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {

@@ -11,10 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResponseData <T> {
     //响应的标号
-    @Setter
-    private Integer code;
-    //响应对象
 
+    private Integer code;
+
+    //响应对象
     private T t;
     //详细的错误描述信息
 

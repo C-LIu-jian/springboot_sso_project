@@ -7,6 +7,7 @@ import com.hwua.service.UserService;
 import com.hwua.util.ResponseData;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.pam.UnsupportedTokenException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,12 +53,11 @@ public class UserServiceImpl implements UserService {
                 responseData.setT(srcUser);
                 return responseData;
             }
-        }
-       return null;
+            }
+            return null;
     }
 
 
         }
-
 
 
