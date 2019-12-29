@@ -26,7 +26,7 @@ public class MyRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
-   /* @Override
+/*    @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof MyJwtToken;
     }*/
@@ -42,13 +42,13 @@ public class MyRealm extends AuthorizingRealm {
         ResponseData responseData = null;
         try{
             User user = userService.getUserByUsername(username);
-//            User user = (User) responseData.getT();
+             //User user = (User) responseData.getT();
             //判断对象是否为空
             if (user!=null){
                 //盐
                 ByteSource bytes = ByteSource.Util.bytes(username);
                 //构建对象
-                SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(usernamePasswordToken,user.getPassword(),bytes,getName());
+                SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,user.getPassword(),bytes,getName());
                 return simpleAuthenticationInfo;
             }
         }catch (Exception e){
@@ -60,7 +60,7 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = ((UsernamePasswordToken) principals.getPrimaryPrincipal()).getUsername();
-        User userSuperInfoByUsername = userService.getUserByUsername(username);
+        User userSuperInfoByUsername = userService.getUserInfoByUsername(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         Set<Role> roleSet = userSuperInfoByUsername.getRoles();
         Iterator<Role> iterator = roleSet.iterator();

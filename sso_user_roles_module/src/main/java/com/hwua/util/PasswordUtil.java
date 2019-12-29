@@ -111,7 +111,7 @@ public class PasswordUtil {
     }
 
     public static void main(String[] args) {
-        Md5Hash zhangsan = new Md5Hash("123456", "test", 2019);
+        Md5Hash zhangsan = new Md5Hash("123456", "dev123", 2019);
         System.out.println(zhangsan);
         System.out.println(zhangsan.toString());
 

@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 对token处理
@@ -17,13 +18,14 @@ import java.util.Date;
 public class JWTUtil {
 
     //构建token
-    public static String createToken(String username,String password) throws Exception {
+    public static String createToken(String username, String password, Map<String,Object> claims) throws Exception {
         //获取JWTCreator中的Builder对象
         JWTCreator.Builder builder = JWT.create().
                 withClaim("username", username).
-                withClaim("password", username).
+                withHeader(claims).
                 //设置过期时间
                 withExpiresAt(new Date(System.currentTimeMillis()+30*60*1000));
+
         //构建一个加密的凭证
         Algorithm algorithm = Algorithm.HMAC256(password);
         //构建token
