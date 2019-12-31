@@ -66,20 +66,20 @@
         var carousel = layui.carousel
         $(function () {
         form.on('submit(submit)',function (data) {
-           /* CoreUtil.sendAjax("/user/login", JSON.stringify(data.field), function (res) {
+            CoreUtil.sendAjax("/user/login", JSON.stringify(data.field), function (res) {
                 CoreUtil.setData("access_token", res.data.accessToken);
                 CoreUtil.setData("refresh_token", res.data.refreshToken);
-                window.location.href = "/home.html";*/
-                $.post("/user/login",{
+                window.location.href = "/home.html";
+               /* $.post("/user/login",{
                 username: data.field.username,
                 password: data.field.password
             },function (resp) {
-                location.href="/home.html?token="+resp.accessToken;
-            });
-            });
-            // return false;
+                // location.href="/home.html?token="+resp.accessToken;
+            });*/
 
-
+            });
+            return false;
+           });
             //改变下时间间隔、动画类型、高度
             carousel.render({
                 elem: '#carousel'

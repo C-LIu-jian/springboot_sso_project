@@ -32,6 +32,7 @@ public class ShiroConfig {
         第二个参数是  过滤器的名字
          */
         filterChainDefinitionMap.put("/css/**","anon");
+        filterChainDefinitionMap.put("/user/login","anon");
         filterChainDefinitionMap.put("/error/**","anon");
         filterChainDefinitionMap.put("/images/**","anon");
         filterChainDefinitionMap.put("/js/**","anon");
